@@ -1,0 +1,185 @@
+taskKey="com.javarush.task.task33.task3310.big10"\n\nShortener (10)
+
+Создай и реализуй класс FileStorageStrategy. Он должен:
+10.1.	Реализовывать интерфейс StorageStrategy.
+10.2.	Использовать FileBucket в качестве ведер (англ. bucket). Подсказка: класс
+должен содержать поле FileBucket[] table.
+10.3.	Работать аналогично тому, как это делает OurHashMapStorageStrategy, но
+удваивать количество ведер не когда количество элементов size станет больше
+какого-то порога, а когда размер одного из ведер (файлов) стал больше
+bucketSizeLimit.
+10.3.1.	Добавь в класс поле long bucketSizeLimit.
+10.3.2.	Проинициализируй его значением по умолчанию, например, 10000 байт.
+10.3.3.	Добавь сеттер и геттер для этого поля.
+10.4.	При реализации метода resize(int newCapacity) проследи, чтобы уже не нужные
+файлы были удалены (вызови метод  remove()).
+Проверь новую стратегию в методе main(). Учти, что стратегия FileStorageStrategy гораздо
+более медленная, чем остальные. Не используй большое количество элементов для теста,
+это может занять оооочень много времени.
+Запусти программу и сравни скорость работы всех 3х стратегий.
+
+P.S. Обрати внимание на наличие всех необходимых полей в классе FileStorageStrategy, по аналогии с OurHashMapStorageStrategy:
+static final int DEFAULT_INITIAL_CAPACITY
+static final long DEFAULT_BUCKET_SIZE_LIMIT
+FileBucket[] table
+int size
+private long bucketSizeLimit = DEFAULT_BUCKET_SIZE_LIMIT
+long maxBucketSize
+
+
+Требования:
+1.	Класс FileStorageStrategy должен поддерживать интерфейс StorageStrategy.
+2.	В классе FileStorageStrategy должны быть созданы все необходимые поля (согласно условию задачи).
+3.	Методы интерфейса StorageStrategy должны быть реализованы в FileStorageStrategy таким образом, чтобы обеспечивать корректную работу Shortener созданного на его основе.
+
+
+Shortener (10)
+
+Создай и реализуй класс FileStorageStrategy. Он должен:
+10.1.	Реализовывать интерфейс StorageStrategy.
+10.2.	Использовать FileBucket в качестве ведер (англ. bucket). Подсказка: класс
+должен содержать поле FileBucket[] table.
+10.3.	Работать аналогично тому, как это делает OurHashMapStorageStrategy, но
+удваивать количество ведер не когда количество элементов size станет больше
+какого-то порога, а когда размер одного из ведер (файлов) стал больше
+bucketSizeLimit.
+10.3.1.	Добавь в класс поле long bucketSizeLimit.
+10.3.2.	Проинициализируй его значением по умолчанию, например, 10000 байт.
+10.3.3.	Добавь сеттер и геттер для этого поля.
+10.4.	При реализации метода resize(int newCapacity) проследи, чтобы уже не нужные
+файлы были удалены (вызови метод  remove()).
+Проверь новую стратегию в методе main(). Учти, что стратегия FileStorageStrategy гораздо
+более медленная, чем остальные. Не используй большое количество элементов для теста,
+это может занять оооочень много времени.
+Запусти программу и сравни скорость работы всех 3х стратегий.
+
+P.S. Обрати внимание на наличие всех необходимых полей в классе FileStorageStrategy, по аналогии с OurHashMapStorageStrategy:
+static final int DEFAULT_INITIAL_CAPACITY
+static final long DEFAULT_BUCKET_SIZE_LIMIT
+FileBucket[] table
+int size
+private long bucketSizeLimit = DEFAULT_BUCKET_SIZE_LIMIT
+long maxBucketSize
+
+
+
+Shortener (10)
+
+Создай и реализуй класс FileStorageStrategy. Он должен:
+10.1.	Реализовывать интерфейс StorageStrategy.
+10.2.	Использовать FileBucket в качестве ведер (англ. bucket). Подсказка: класс
+должен содержать поле FileBucket[] table.
+10.3.	Работать аналогично тому, как это делает OurHashMapStorageStrategy, но
+удваивать количество ведер не когда количество элементов size станет больше
+какого-то порога, а когда размер одного из ведер (файлов) стал больше
+bucketSizeLimit.
+10.3.1.	Добавь в класс поле long bucketSizeLimit.
+10.3.2.	Проинициализируй его значением по умолчанию, например, 10000 байт.
+10.3.3.	Добавь сеттер и геттер для этого поля.
+10.4.	При реализации метода resize(int newCapacity) проследи, чтобы уже не нужные
+файлы были удалены (вызови метод  remove()).
+Проверь новую стратегию в методе main(). Учти, что стратегия FileStorageStrategy гораздо
+более медленная, чем остальные. Не используй большое количество элементов для теста,
+это может занять оооочень много времени.
+Запусти программу и сравни скорость работы всех 3х стратегий.
+
+P.S. Обрати внимание на наличие всех необходимых полей в классе FileStorageStrategy, по аналогии с OurHashMapStorageStrategy:
+static final int DEFAULT_INITIAL_CAPACITY
+static final long DEFAULT_BUCKET_SIZE_LIMIT
+FileBucket[] table
+int size
+private long bucketSizeLimit = DEFAULT_BUCKET_SIZE_LIMIT
+long maxBucketSize
+
+
+
+Shortener (10)
+
+Создай и реализуй класс FileStorageStrategy. Он должен:
+10.1.	Реализовывать интерфейс StorageStrategy.
+10.2.	Использовать FileBucket в качестве ведер (англ. bucket). Подсказка: класс
+должен содержать поле FileBucket[] table.
+10.3.	Работать аналогично тому, как это делает OurHashMapStorageStrategy, но
+удваивать количество ведер не когда количество элементов size станет больше
+какого-то порога, а когда размер одного из ведер (файлов) стал больше
+bucketSizeLimit.
+10.3.1.	Добавь в класс поле long bucketSizeLimit.
+10.3.2.	Проинициализируй его значением по умолчанию, например, 10000 байт.
+10.3.3.	Добавь сеттер и геттер для этого поля.
+10.4.	При реализации метода resize(int newCapacity) проследи, чтобы уже не нужные
+файлы были удалены (вызови метод  remove()).
+Проверь новую стратегию в методе main(). Учти, что стратегия FileStorageStrategy гораздо
+более медленная, чем остальные. Не используй большое количество элементов для теста,
+это может занять оооочень много времени.
+Запусти программу и сравни скорость работы всех 3х стратегий.
+
+P.S. Обрати внимание на наличие всех необходимых полей в классе FileStorageStrategy, по аналогии с OurHashMapStorageStrategy:
+static final int DEFAULT_INITIAL_CAPACITY
+static final long DEFAULT_BUCKET_SIZE_LIMIT
+FileBucket[] table
+int size
+private long bucketSizeLimit = DEFAULT_BUCKET_SIZE_LIMIT
+long maxBucketSize
+
+
+
+Shortener (10)
+
+Создай и реализуй класс FileStorageStrategy. Он должен:
+10.1.	Реализовывать интерфейс StorageStrategy.
+10.2.	Использовать FileBucket в качестве ведер (англ. bucket). Подсказка: класс
+должен содержать поле FileBucket[] table.
+10.3.	Работать аналогично тому, как это делает OurHashMapStorageStrategy, но
+удваивать количество ведер не когда количество элементов size станет больше
+какого-то порога, а когда размер одного из ведер (файлов) стал больше
+bucketSizeLimit.
+10.3.1.	Добавь в класс поле long bucketSizeLimit.
+10.3.2.	Проинициализируй его значением по умолчанию, например, 10000 байт.
+10.3.3.	Добавь сеттер и геттер для этого поля.
+10.4.	При реализации метода resize(int newCapacity) проследи, чтобы уже не нужные
+файлы были удалены (вызови метод  remove()).
+Проверь новую стратегию в методе main(). Учти, что стратегия FileStorageStrategy гораздо
+более медленная, чем остальные. Не используй большое количество элементов для теста,
+это может занять оооочень много времени.
+Запусти программу и сравни скорость работы всех 3х стратегий.
+
+P.S. Обрати внимание на наличие всех необходимых полей в классе FileStorageStrategy, по аналогии с OurHashMapStorageStrategy:
+static final int DEFAULT_INITIAL_CAPACITY
+static final long DEFAULT_BUCKET_SIZE_LIMIT
+FileBucket[] table
+int size
+private long bucketSizeLimit = DEFAULT_BUCKET_SIZE_LIMIT
+long maxBucketSize
+
+
+
+Shortener (10)
+
+Создай и реализуй класс FileStorageStrategy. Он должен:
+10.1.	Реализовывать интерфейс StorageStrategy.
+10.2.	Использовать FileBucket в качестве ведер (англ. bucket). Подсказка: класс
+должен содержать поле FileBucket[] table.
+10.3.	Работать аналогично тому, как это делает OurHashMapStorageStrategy, но
+удваивать количество ведер не когда количество элементов size станет больше
+какого-то порога, а когда размер одного из ведер (файлов) стал больше
+bucketSizeLimit.
+10.3.1.	Добавь в класс поле long bucketSizeLimit.
+10.3.2.	Проинициализируй его значением по умолчанию, например, 10000 байт.
+10.3.3.	Добавь сеттер и геттер для этого поля.
+10.4.	При реализации метода resize(int newCapacity) проследи, чтобы уже не нужные
+файлы были удалены (вызови метод  remove()).
+Проверь новую стратегию в методе main(). Учти, что стратегия FileStorageStrategy гораздо
+более медленная, чем остальные. Не используй большое количество элементов для теста,
+это может занять оооочень много времени.
+Запусти программу и сравни скорость работы всех 3х стратегий.
+
+P.S. Обрати внимание на наличие всех необходимых полей в классе FileStorageStrategy, по аналогии с OurHashMapStorageStrategy:
+static final int DEFAULT_INITIAL_CAPACITY
+static final long DEFAULT_BUCKET_SIZE_LIMIT
+FileBucket[] table
+int size
+private long bucketSizeLimit = DEFAULT_BUCKET_SIZE_LIMIT
+long maxBucketSize
+
+
+
