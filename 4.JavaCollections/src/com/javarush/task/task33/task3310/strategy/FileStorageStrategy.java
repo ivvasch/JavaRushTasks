@@ -3,18 +3,23 @@ package com.javarush.task.task33.task3310.strategy;
 import java.io.IOException;
 
 public class FileStorageStrategy implements StorageStrategy {
+    // размер по умолчанию нашего FileBucket
     private static final int DEFAULT_INITIAL_CAPACITY = 16;
+    // максимальный размер одной корзины
     private static final long DEFAULT_BUCKET_SIZE_LIMIT = 1000l;
+    // создаем корзину с размером по умолчанию
     private FileBucket[] table = new FileBucket[DEFAULT_INITIAL_CAPACITY];
+    // счетчик Entry
     private int size;
+    // размер бакета, после которого увеличивается наш FileBucket
     private long bucketSizeLimit = DEFAULT_BUCKET_SIZE_LIMIT;
-    long maxBucketSize; // loadfactor
+    // loadfactor
+    long maxBucketSize;
 
     // геттеры и сеттеры
     public long getBucketSizeLimit() {
         return bucketSizeLimit;
     }
-
     public void setBucketSizeLimit(long bucketSizeLimit) {
         this.bucketSizeLimit = bucketSizeLimit;
     }
@@ -55,12 +60,15 @@ public class FileStorageStrategy implements StorageStrategy {
     }
     // ----------------------------------------------
 
+    // увеличение нашего FileBucket
     public void resize(int newCapacity) throws IOException, ClassNotFoundException {
         FileBucket[] newTable = new FileBucket[newCapacity];
         transfer(newTable);
         table = newTable;
     }
+    //-----------------------------------------------
 
+    // перемещаем все Entry в увеличенный FileBucket
     public void transfer(FileBucket[] newTable){
         for (int i = 0; i < table.length; i++) {
             if (table[i] == null) {
@@ -90,78 +98,143 @@ public class FileStorageStrategy implements StorageStrategy {
                         e.printStackTrace();
                     }
                 }
-                table[i].remove();
+                try {
+                    table[i].remove();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-//        FileBucket[] src = table;
-//        int newCapacity = newTable.length;
-//        for (int i = 0; i < src.length; i++) {
-//            FileBucket fileBucket = src[i];
-//            if (fileBucket != null) {
-//                src[i] = null;
-//                do {
-//                    Entry next = fileBucket.getEntry().next;
-//                    int hash = indexFor(fileBucket.getEntry().hash, newCapacity);
-//                    fileBucket = newTable[i];
-//                    newTable[i] = fileBucket;
-//                    fileBucket = next;
-//                } while (fileBucket != null);
-//            }
-//        }
-
     }
+    // ----------------------------------------------------------------
 
-    public void addEntry(int hash, Long key, String value, int bucketIndex) {
-        Entry entry = table[bucketIndex];
-        table[bucketIndex] = new Entry(hash, key, value, entry);
-        if (size++ >= threshold) {
-            resize(2* table.length);
+    // добавляем новый Entry
+    public void addEntry(int hash, Long key, String value, int bucketIndex) throws IOException {
+        Entry entry = null;
+        try {
+            entry = table[bucketIndex].getEntry();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-    }
+        table[bucketIndex].putEntry(new Entry(hash, key, value, entry));
+        size++;
 
+            try {
+        if (table[bucketIndex].getFileSize() >= bucketSizeLimit) {
+            resize(2 * table.length);
+        }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+    }
+    // --------------------------------------------------------------------
+
+    // создаем новый Entry
     public void createEntry(int hash, Long key, String value, int bucketIndex) {
-        Entry entry = table[bucketIndex];
-        table[bucketIndex] = new Entry(hash, key, value, entry);
+        try {
+            table[bucketIndex] = new FileBucket();
+            table[bucketIndex].putEntry(new Entry(hash, key, value, null));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         size++;
     }
+    // ----------------------------------------------------------------------
 
+    // уточняем содержится ли переданный ключ в бакете
     @Override
     public boolean containsKey(Long key) {
         return getEntry(key) != null;
     }
+    // ----------------------------------------------------------------------
 
+    // уточняем содержится ли value в бакете
     @Override
     public boolean containsValue(String value) {
-        Entry[] tab = table;
-        for (int i = 0; i < table.length; i++)
-            for (Entry entry = tab[i]; entry != null; entry = entry.next)
-                if (value.equals(entry.value))
-                    return true;
-        return false;
-    }
-
-    @Override
-    public void put(Long key, String value) {
-        // проверить Entry[] table на наличие похожего если есть заменить, если нет создать createEntry + addEntry
-        addEntry(hash(key), key, value, indexFor(hash(key),table.length));
-    }
-
-    @Override
-    public Long getKey(String value) {
-        if (value == null) {
-            return null;
-        }
         for (int i = 0; i < table.length; i++) {
-            Entry entry = table[i];
-            if (entry.getValue().equals(value)) {
-                return entry.getKey();
+            if (table[i] == null)
+                continue;
+
+            Entry entry = null;
+            try {
+                entry = table[i].getEntry();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            while (entry != null) {
+                if (entry.value.equals(value))
+                    return true;
+
+                entry = entry.next;
             }
         }
-        return null;
+        return false;
     }
+    // ---------------------------------------------------------------------------
 
+    // кладем Entry по ключу и значению
+    @Override
+    public void put(Long key, String value) {
+        int hash = hash(key);
+        int index = indexFor(hash, table.length);
+        if (table[index] != null) {
+            Entry entry = null;
+            try {
+                entry = table[index].getEntry();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            while (entry != null) {
+                if (entry.getKey().equals(key)) {
+                    entry.value = value;
+                    return;
+                }
+                entry = entry.next;
+            }
+            try {
+                addEntry(hash, key, value, index);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            createEntry(hash, key, value, index);
+        }
+    }
+    // -----------------------------------------------------------------------
+
+    // получаем ключ по значению
+    @Override
+    public Long getKey(String value) {
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] == null)
+                continue;
+            Entry entry = null;
+            if (table[i] != null) {
+                try {
+                    entry = table[i].getEntry();
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                while (entry != null) {
+                    if (entry.value.equals(value)) {
+                        return entry.key;
+                    }
+                    entry = entry.next;
+                }
+            }
+        }
+        return 0l;
+    }
+    // --------------------------------------------------------------------
+
+    // получаем значение по ключу
     @Override
     public String getValue(Long key) {
-        return null == getEntry(key)? null : getEntry(key).getValue();
+        Entry entry = getEntry(key);
+        if (entry != null)
+            return entry.value;
+
+        return null;
     }
+    // --------------------------------------------------------------------
 }

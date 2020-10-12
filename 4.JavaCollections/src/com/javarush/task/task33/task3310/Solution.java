@@ -8,12 +8,14 @@ import java.util.*;
 public class Solution {
 
     public static void main(String[] args) throws IOException {
-        FileBucket fileBucket = new FileBucket();
-        System.out.println("size " + fileBucket.getFileSize());
+//        FileBucket fileBucket = new FileBucket();
+//        System.out.println("size " + fileBucket.getFileSize());
 //        HashMapStorageStrategy map = new HashMapStorageStrategy();
         OurHashMapStorageStrategy ourMap = new OurHashMapStorageStrategy();
-//        testStrategy(map, 10000);
         testStrategy(ourMap, 10000);
+//        testStrategy(map, 10000);
+        FileStorageStrategy fileStorageStrategy = new FileStorageStrategy();
+        testStrategy(fileStorageStrategy, 100);
 
     }
 
