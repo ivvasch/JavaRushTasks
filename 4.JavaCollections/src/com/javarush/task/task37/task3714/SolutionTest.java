@@ -30,10 +30,6 @@ public class SolutionTest {
         Assert.assertEquals(Solution.romanToInteger("MMDDCCLLXXVVII"), 3332);
         Assert.assertEquals(Solution.romanToInteger("MMMD"), 3500);
         Assert.assertEquals(Solution.romanToInteger("MMM"), 3000);
-        Assert.assertEquals(Solution.romanToInteger("IIXX"), 20);
-        Assert.assertEquals(Solution.romanToInteger("VIIV"), 10);
-        Assert.assertEquals(Solution.romanToInteger("MMCMM"), 3900);
-        Assert.assertEquals(Solution.romanToInteger("CIIX"), 110);
         Assert.assertEquals(Solution.romanToInteger("IXI"), 10);
         Assert.assertEquals(Solution.romanToInteger("VIIII"), 9);
         Assert.assertEquals(Solution.romanToInteger("IIII"), 4);
